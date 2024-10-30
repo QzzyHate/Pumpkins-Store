@@ -8,6 +8,15 @@ List<Pumpkins> pumpkinsStores = new List<Pumpkins>
 
 app.MapGet("/", () => pumpkinsStores);
 
+app.MapPut("/{name}", (string name, PumpkinsDTO dto) =>
+{
+    Pumpkins buffer = pumpkinsStores.Find(p => p._pumpkinName == name);
+
+    buffer._pumpkinSize = dto.pumpkinSize == 0 ? buffer._pumpkinSize : dto.pumpkinSize;
+    buffer._pumpkinWeight = dto.pumpkinWeight == 0 ? buffer._pumpkinWeight : dto.pumpkinWeight;
+    buffer._pumpkinPrice = dto.pumpkinPrice == 0 ? buffer._pumpkinPrice : dto.pumpkinPrice;
+});
+
 app.MapDelete("/delete/{name}", (string name) =>
 {
     Pumpkins buffer = pumpkinsStores.Find(p => p._pumpkinName == name);
