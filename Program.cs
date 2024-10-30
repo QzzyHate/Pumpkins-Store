@@ -8,9 +8,15 @@ List<Pumpkins> pumpkinsStores = new List<Pumpkins>
 
 app.MapGet("/", () => pumpkinsStores);
 
+app.MapDelete("/delete/{name}", (string name) =>
+{
+    Pumpkins buffer = pumpkinsStores.Find(p => p._pumpkinName == name);
+    pumpkinsStores.Remove(buffer);
+});
+
 app.Run();
 
-record class PumpkinsDTO (string pumpkinName, float  pumpkinSize, float pumpkinWeight, float pumpkinPrice);
+record class PumpkinsDTO ( float  pumpkinSize, float pumpkinWeight, float pumpkinPrice);
 
 class Pumpkins
 {
